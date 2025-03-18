@@ -19,7 +19,7 @@ import {
     const [lastName, setLastName] = useState('')
     const [age, setAge] = useState(0)
     const [major, setMajor] = useState('')
-    const [GPA, setGPA] = useState(0)
+    const [gpa, setGPA] = useState(0)
     const navigate = useNavigate()
   
     const handleSave = async (e) => {
@@ -27,13 +27,13 @@ import {
   
       try {
         const token = localStorage.getItem('token')
-        const response = await fetch('http://localhost:8080/students', {
+        const response = await fetch('http://localhost:8080/students?page=0', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             token: token,
           },
-          body: JSON.stringify({ id, firstName, lastName, age, major }),
+          body: JSON.stringify({ id, firstName, lastName, age, major, gpa }),
         })
         if (response.status === 200) {
           setSuccess('Student added successfully')
@@ -67,11 +67,23 @@ import {
                     onChange={(e) => setLastName(e.target.value)}
                   />
                   <CFormLabel htmlFor="age">Age</CFormLabel>
-                  <CFormInput type="text" id="age" onChange={(e) => setAge(e.target.value)} />
+                  <CFormInput 
+                    type="text" 
+                    id="age" 
+                    onChange={(e) => setAge(e.target.value)} 
+                  />
                   <CFormLabel htmlFor="major">Major</CFormLabel>
-                  <CFormInput type="text" id="major" onChange={(e) => setMajor(e.target.value)} />
+                  <CFormInput 
+                    type="text" 
+                    id="major" 
+                    onChange={(e) => setMajor(e.target.value)} 
+                  />
                   <CFormLabel htmlFor="gpa">GPA</CFormLabel>
-                  <CFormInput type="text" id="gpa" onChange={(e) => setGPA(e.target.value)} />
+                  <CFormInput 
+                    type="text"
+                    id="gpa"
+                    onChange={(e) => setGPA(e.target.value)} 
+                  />
                   <div style={{ justifyContent: 'center', display: 'flex', marginTop: '15px' }}>
                     <CButton type="submit" color="primary">
                       Save
